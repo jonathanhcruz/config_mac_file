@@ -29,7 +29,8 @@ alias ga='git add .';
 alias gc='git commit -m';
 alias gr='git reset --hard HEAD~1';
 alias gs='git status';
-alias uter='source ~/.bashrc; source ~/.zshrc; source ~/.bash_profile;'
+alias gps='git push';
+alias uter='source ~/.bashrc; source ~/.zshrc; source ~/.bash_profile;';
     " >> ~/.bashrc;
     source ~/.bashrc; 
     source ~/.zshrc;
@@ -39,7 +40,7 @@ fi
 
 # Install Homebrew
 if ! type brew ; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
     echo "brew not installed";
     uter
 fi
@@ -48,10 +49,25 @@ if ! type wget ; then
     brew install wget
 fi
 
+# Install OhMyZSH
 if ! type ohmyzsh ; then
-    # sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-   echo "alias ohmyzsh='echo installed';" >> ~/.bashrc;
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    brew install fontforge;
+    brew tap homebrew/cask-fonts;
+    brew install font-hack-nerd-font;
+    brew install powerlevel10k;
+    echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc;
+    echo "alias ohmyzsh='echo installed';" >> ~/.bashrc;
 fi
+
+
+if ! type nvim ; then 
+    brew install neovim
+    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    cd ~/.config/nvim/;
+    touch init.vim;
+    uter
+fi 
 
 
 # Install warp terminal
